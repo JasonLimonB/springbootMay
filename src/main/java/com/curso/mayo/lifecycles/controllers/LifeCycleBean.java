@@ -3,13 +3,15 @@ package com.curso.mayo.lifecycles.controllers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanNameAware;
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 @Component
-public class LifeCycleBean implements BeanNameAware {
+public class LifeCycleBean implements BeanNameAware, InitializingBean, DisposableBean {
 
     /*
     * We have many rules to know
@@ -38,7 +40,17 @@ public class LifeCycleBean implements BeanNameAware {
 
     // runs before the bean is destroy
     @PreDestroy
-    public void destroy(){
-        log.info("Pre Destroy");
+    public void destroyBean(){
+        log.info("Pre Destroy ");
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        log.info("I am afterPropertiesSet....");
+    }
+
+    @Override
+    public void destroy() throws Exception {
+        log.info("I'm method destroy.....");
     }
 }
