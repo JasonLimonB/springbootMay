@@ -51,4 +51,13 @@ public class UserFakerService {
         return users.stream().filter( dato -> dato.getName().equals(name) ).collect(Collectors.toList()).get(0);
     }
 
+    /*
+    * we need the mehtod for delete an user then we will implement clean cache
+    * */
+
+    @CacheEvict("users")
+    public void deleteUser(String name){
+        users.removeIf(u -> u.getName().equals(name));
+    }
+
 }

@@ -5,10 +5,7 @@ import com.curso.mayo.cache.services.UserFakerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,6 +24,12 @@ public class CacheExampleController {
     @GetMapping("/{name}")
     public ResponseEntity<UserFakerEntity> finsByNickName(@PathVariable String name){
         return new ResponseEntity<UserFakerEntity>( fakerService.findByNickName(name), HttpStatus.FOUND );
+    }
+
+    @DeleteMapping("/{name}")
+    public ResponseEntity<Void> deleteUser( @PathVariable String name ){
+        fakerService.deleteUser(name);
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
 }
